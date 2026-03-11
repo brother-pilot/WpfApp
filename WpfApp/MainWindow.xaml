@@ -6,7 +6,48 @@
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         Title="WpfApp" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,8" Grid.Row="0" >
+            <Button Content="Импорт CSV" Command="{Binding LoadCommand}" Margin="2"/>
+            <Button Content="Проверить данные" Command="{Binding ValidateCommand}" Margin="2"/>
+            <Button Content="Сформировать сводку" Command="{Binding GenerateSummaryCommand}" Margin="2"/>
+            <Button Content="Выгрузить данные в json" Command="{Binding ExportCommand}" Margin="2"/>
+            <TextBlock Text="{Binding Status}" Margin="10,0" VerticalAlignment="Center"/>
+            <!--<TextBlock Text="Путь к файлу:" VerticalAlignment="Center" Margin="8,0,0,0"/>
+            <TextBox x:Name="txtFilePath" Width="230" Margin="6,0" IsReadOnly="True"/>-->
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+
+            <!-- Сводная информация по скважинам -->
+            <GroupBox Header="Сводная информация по скважинам" Grid.Column="1" VerticalAlignment="Top" Height="240">
+                <DataGrid ItemsSource="{Binding Items}" AutoGenerateColumns="True" 
+                      IsReadOnly="True" AlternatingRowBackground="LightGray" />
+
+                
+            </GroupBox>
+        </Grid>
+
+        <!-- Раздел ошибок -->
+        <GroupBox Header="Ошибки" Grid.Row="2" Margin="0,6,0,6">
+            <DataGrid x:Name="dgErrors" AutoGenerateColumns="False" Height="120" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Code" Binding="{Binding Code}"/>
+                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
+                    <DataGridTextColumn Header="Row" Binding="{Binding Row}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Действия -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3" Margin="0,6,0,0">
+            <!-- <Button Content="Выход" Width="110" Click="BtnExit_Click"/>-->
+        </StackPanel>
 
     </Grid>
 </Window>
