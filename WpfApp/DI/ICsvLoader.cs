@@ -9,6 +9,6 @@ namespace WpfApp.DI
 {
     internal interface ICsvLoader
     {
-        Task<List<Interval>> LoadAsync(string csvPath, CancellationToken ct = default);
+        Task<List<CsvData>> LoadAsync(string csvPath, CancellationToken ct = default);
     }
 }

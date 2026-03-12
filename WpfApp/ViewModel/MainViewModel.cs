@@ -19,7 +19,7 @@ namespace WpfApp.ViewModel
         private readonly IValidator<Interval> _validator;
         private readonly ISummaryService _summaryService;
 
-        public ObservableCollection<Interval> Items { get; } = new();
+        public ObservableCollection<CsvData> Items { get; } = new();
         public ObservableCollection<ResultWall> Summary { get; } = new();
 
         private string _status;
@@ -62,8 +62,8 @@ namespace WpfApp.ViewModel
             foreach (var it in Items)
             {
                 // Здесь можно хранить отдельное свойство ValidationResult, если нужно UI-обновление для каждой строки
-                var res = _validator.Validate(it);
-                if (res.IsValid) valid++;
+                //var res = _validator.Validate(it);
+                //if (res.IsValid) valid++;
             }
             Status = $"Validation complete: {valid}/{total} valid.";
             // можно пометить неверные строки как ошибочные в UI
@@ -73,10 +73,10 @@ namespace WpfApp.ViewModel
         {
             Status = "Generating summary...";
             Summary.Clear();
-            var summary = _summaryService.BuildSummary(Items);
+            /*var summary = _summaryService.BuildSummary(Items);
             foreach (var s in summary)
                 Summary.Add(s);
-            Status = $"Summary: {Summary.Count} rows.";
+            Status = $"Summary: {Summary.Count} rows.";*/
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

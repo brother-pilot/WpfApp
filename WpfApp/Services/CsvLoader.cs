@@ -15,9 +15,34 @@ namespace WpfApp.Services
 {
     public class CsvLoader : ICsvLoader
     {
-        Task<List<Interval>> ICsvLoader.LoadAsync(string csvPath, CancellationToken ct)
+        private readonly string dirProject = Directory.GetParent(
+                    Directory.GetParent(
+                            Directory.GetParent(Directory.GetCurrentDirectory()).ToString())
+                    .ToString())
+                .ToString();
+
+        public async Task<List<CsvData>> LoadAsync(string csvPath, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            if (!FileNameValidator.IsValidFileName(csvPath))
+                csvPath = Path.Combine(dirProject,"Data", "Data.csv");
+            using var reader = new StreamReader(csvPath);
+
+            var options = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = false,
+                Delimiter = ";",
+                MissingFieldFound = null,
+                BadDataFound = null,
+                HeaderValidated = null
+            };
+            using var csv = new CsvReader(reader, options);
+
+            var records = new List<CsvData>();
+            await foreach (var r in csv.GetRecordsAsync<CsvData>(ct))
+            {
+                records.Add(r);
+            }
+            return records;
         }
     }
 }
