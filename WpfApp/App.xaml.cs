@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Windows;
 using WpfApp.DI;
 using WpfApp.Models;
@@ -21,7 +22,8 @@ namespace WpfApp
 
             var services = new ServiceCollection();
             services.AddSingleton<ICsvLoader, CsvLoader>();
-            services.AddSingleton<IValidator<Interval>, Validator<Interval>>();
+            services.AddSingleton<IGrouper, WellGrouper>();
+            services.AddSingleton<IValidator, Validator>();
             services.AddSingleton<ISummaryService, SummaryService>();
             services.AddTransient<MainViewModel>();
 

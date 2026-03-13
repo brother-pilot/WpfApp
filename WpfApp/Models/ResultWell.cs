@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp.Models
 {
-    public class ResultWall
+    public class ResultWell
     {
         public double DepthTo { get; set; }
         public int NumInterval { get; set; }

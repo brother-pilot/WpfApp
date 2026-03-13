@@ -10,7 +10,7 @@ namespace WpfApp.Services
 {
     public class SummaryService : ISummaryService
     {
-        List<ResultWall> ISummaryService.BuildSummary(IEnumerable<Interval> items)
+        List<ResultWell> ISummaryService.BuildSummary(IEnumerable<Interval> items)
         {
             throw new NotImplementedException();
         }

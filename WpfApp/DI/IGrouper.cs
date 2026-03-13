@@ -7,8 +7,8 @@ using WpfApp.Models;
 
 namespace WpfApp.DI
 {
-    interface IValidator
+    internal interface IGrouper
     {
-        ValidResult Validate(Well well);
+        List<Well> GroupeWell(IEnumerable<CsvData> items);
     }
 }

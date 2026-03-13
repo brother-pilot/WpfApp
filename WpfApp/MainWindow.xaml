@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="WpfApp" Height="450" Width="800">
+        Title="WpfApp" Height="600" Width="800">
     <Grid Margin="8">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,8" Grid.Row="0" >
             <Button Content="Импорт CSV" Command="{Binding LoadCommand}" Margin="2"/>
+            <Button Content="Группировать данные" Command="{Binding GroupCommand}" Margin="2"/>
             <Button Content="Проверить данные" Command="{Binding ValidateCommand}" Margin="2"/>
             <Button Content="Сформировать сводку" Command="{Binding GenerateSummaryCommand}" Margin="2"/>
             <Button Content="Выгрузить данные в json" Command="{Binding ExportCommand}" Margin="2"/>
@@ -21,20 +24,25 @@
             <!--<TextBlock Text="Путь к файлу:" VerticalAlignment="Center" Margin="8,0,0,0"/>
             <TextBox x:Name="txtFilePath" Width="230" Margin="6,0" IsReadOnly="True"/>-->
         </StackPanel>
-
+        
         <Grid Grid.Row="1">
-
-            <!-- Сводная информация по скважинам -->
-            <GroupBox Header="Сводная информация по скважинам" Grid.Column="1" VerticalAlignment="Top" Height="240">
+            <!-- Загруженные данные из файла csv -->
+            <GroupBox Header="Загруженные данные из файла csv" Grid.Column="1" VerticalAlignment="Top" Height="120">
                 <DataGrid ItemsSource="{Binding Items}" AutoGenerateColumns="True" 
-                      IsReadOnly="True" AlternatingRowBackground="LightGray" />
+              IsReadOnly="True" AlternatingRowBackground="LightGray" />
+            </GroupBox>
+        </Grid>
 
-                
+        <Grid Grid.Row="2">
+            <!-- Сгруппированные данные -->
+            <GroupBox Header="Сгруппированные данные" Grid.Column="1" VerticalAlignment="Top" Height="120">
+                <DataGrid ItemsSource="{Binding Groups}" AutoGenerateColumns="True" 
+      IsReadOnly="True" AlternatingRowBackground="LightGray" />
             </GroupBox>
         </Grid>
 
         <!-- Раздел ошибок -->
-        <GroupBox Header="Ошибки" Grid.Row="2" Margin="0,6,0,6">
+        <GroupBox Header="Ошибки" Grid.Row="3" Margin="0,6,0,6">
             <DataGrid x:Name="dgErrors" AutoGenerateColumns="False" Height="120" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Code" Binding="{Binding Code}"/>
@@ -44,8 +52,18 @@
             </DataGrid>
         </GroupBox>
 
+        <Grid Grid.Row="4">
+            <!-- Сводная информация по скважинам -->
+            <GroupBox Header="Сводная информация по скважинам" Grid.Column="1" VerticalAlignment="Top" Height="150">
+                <DataGrid ItemsSource="{Binding Summary}" AutoGenerateColumns="True" 
+                      IsReadOnly="True" AlternatingRowBackground="LightGray" />
+            </GroupBox>
+        </Grid>
+
+        
+
         <!-- Действия -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3" Margin="0,6,0,0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="4" Margin="0,6,0,0">
             <!-- <Button Content="Выход" Width="110" Click="BtnExit_Click"/>-->
         </StackPanel>
 
