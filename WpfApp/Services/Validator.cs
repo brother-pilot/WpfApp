@@ -12,19 +12,34 @@ namespace WpfApp.Services
     {
 
         public ValidResult Validate(Well well) 
-        { 
-            
-                foreach(var interval in well.Intervals) 
-                { 
-                
-                }
-            return new ValidResult();
-        }
-
-        private ValidResult Validate(Interval item)
         {
             var r = new ValidResult { IsValid = true };
 
+            foreach (var interval in well.Intervals) 
+                {
+                    ValidateInterval(interval, r);
+                }
+            ValidateIntersectionIntervals(well, r);
+            return r;
+        }
+
+        private void ValidateIntersectionIntervals(Well well, ValidResult r)
+        {
+            var intervals=well.Intervals.OrderBy(i => i.DepthFrom).ToList();
+            for (var i = 1; i < intervals.Count; i++) 
+            {
+                if (intervals[i].DepthFrom < intervals[i - 1].DepthTo)
+                {
+                    r.IsValid = false;
+                    r.Errors.Add("Intersection of the intervals");
+                    return;
+                }
+            }
+            return;
+        }
+
+        private void ValidateInterval(Interval item, ValidResult r)
+        {           
             if (item.DepthFrom < 0)
             {
                 r.IsValid = false;
@@ -45,8 +60,7 @@ namespace WpfApp.Services
                 r.IsValid = false;
                 r.Errors.Add("Rock is required.");
             }
-            // можно добавить дополнительные проверки
-            return r;
+            return ;
         }
 
     }

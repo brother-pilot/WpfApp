@@ -24,6 +24,7 @@ namespace WpfApp.ViewModel
 
         public ObservableCollection<CsvData> Items { get; } = new();
         public ObservableCollection<Well> Groups { get; } = new();
+        public ObservableCollection<Error> Errors { get; } = new();
         public ObservableCollection<ResultWell> Summary { get; } = new();
 
         private string _status;
@@ -78,10 +79,13 @@ namespace WpfApp.ViewModel
             Status = "Validating...";
             int valid = 0;
             int total = Groups.Count;
-            foreach (var it in Groups)
+            int numStr = 0;
+            foreach (var w in Groups)
             {
-                // Здесь можно хранить отдельное свойство ValidationResult, если нужно UI-обновление для каждой строки
-                var res = _validator.Validate(it);
+                var res = _validator.Validate(w);
+                numStr++;
+                if (!res.IsValid)
+                    Errors.Add(new Error(numStr, w.WellId, res.ToString()));
                 if (res.IsValid) 
                     valid++;
             }

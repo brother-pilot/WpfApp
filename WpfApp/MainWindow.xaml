@@ -37,20 +37,17 @@
             <!-- Сгруппированные данные -->
             <GroupBox Header="Сгруппированные данные" Grid.Column="1" VerticalAlignment="Top" Height="120">
                 <DataGrid ItemsSource="{Binding Groups}" AutoGenerateColumns="True" 
-      IsReadOnly="True" AlternatingRowBackground="LightGray" />
+                 IsReadOnly="True" AlternatingRowBackground="LightGray" />
             </GroupBox>
         </Grid>
 
         <!-- Раздел ошибок -->
-        <GroupBox Header="Ошибки" Grid.Row="3" Margin="0,6,0,6">
-            <DataGrid x:Name="dgErrors" AutoGenerateColumns="False" Height="120" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Code" Binding="{Binding Code}"/>
-                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
-                    <DataGridTextColumn Header="Row" Binding="{Binding Row}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </GroupBox>
+        <Grid Grid.Row="3">
+            <GroupBox Header="Ошибки" Grid.Column="1" VerticalAlignment="Top" Height="120">
+                <DataGrid ItemsSource="{Binding Errors}" AutoGenerateColumns="True" 
+                IsReadOnly="True" AlternatingRowBackground="LightGray" />
+            </GroupBox>
+        </Grid>
 
         <Grid Grid.Row="4">
             <!-- Сводная информация по скважинам -->

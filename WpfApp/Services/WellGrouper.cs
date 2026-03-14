@@ -21,7 +21,7 @@ namespace WpfApp.Services
                     {
                         DepthFrom = r.DepthFrom,
                         DepthTo = r.DepthTo,
-                        Rock = r.Rock ?? new Rock(), // если Rock может быть null, подставляем пустой Rock
+                        Rock = r.Rock ?? null,// new Rock(), // если Rock может быть null, подставляем пустой Rock
                         Porosity = r.Porosity
                     }).ToList();            
                 return new Well
