@@ -25,7 +25,7 @@ namespace WpfApp.ViewModel
         public ObservableCollection<CsvData> Items { get; } = new();
         public ObservableCollection<Well> Groups { get; } = new();
         public ObservableCollection<Error> Errors { get; } = new();
-        public ObservableCollection<ResultWell> Summary { get; } = new();
+        public ObservableCollection<SummaryWell> Summary { get; } = new();
 
         private string _status;
         public string Status { get => _status; set { _status = value; OnPropertyChanged(); } }
@@ -97,10 +97,10 @@ namespace WpfApp.ViewModel
         {
             Status = "Generating summary...";
             Summary.Clear();
-            /*var summary = _summaryService.BuildSummary(Items);
+            var summary = _summaryService.BuildSummary(Groups);
             foreach (var s in summary)
                 Summary.Add(s);
-            Status = $"Summary: {Summary.Count} rows.";*/
+            Status = $"Summary: {Summary.Count} rows.";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

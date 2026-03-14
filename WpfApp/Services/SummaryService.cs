@@ -10,9 +10,21 @@ namespace WpfApp.Services
 {
     public class SummaryService : ISummaryService
     {
-        List<ResultWell> ISummaryService.BuildSummary(IEnumerable<Interval> items)
+        public List<SummaryWell> BuildSummary(IEnumerable<Well> wells)
         {
-            throw new NotImplementedException();
+            var res= new List<SummaryWell>();
+            foreach (var w in wells) 
+            {
+                res.Add(
+                    new SummaryWell(
+                        w.WellId,
+                        w.Intervals.Max(i=>i.DepthTo),
+                        w.Intervals.Count,
+                        SummaryWell.WeightedAveragePorosity(w.Intervals),
+                        SummaryWell.MostCommonRockByTotalThickness(w.Intervals)
+                    ));
+            }
+            return res;
         }
     }
 }

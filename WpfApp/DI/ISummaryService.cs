@@ -9,6 +9,6 @@ namespace WpfApp.DI
 {
     internal interface ISummaryService
     {
-        List<ResultWell> BuildSummary(IEnumerable<Interval> items);
+        List<SummaryWell> BuildSummary(IEnumerable<Well> items);
     }
 }
