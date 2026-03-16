@@ -40,7 +40,7 @@ namespace WpfApp.Services
             }
             catch (Exception e)
             {
-                throw new Exception("Не удалось сохранить данные в файл!");
+                //throw new Exception("Не удалось сохранить данные в файл!");
                 return false;
             } 
         }

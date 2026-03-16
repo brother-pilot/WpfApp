@@ -38,11 +38,19 @@ namespace WpfApp.Services
             using var csv = new CsvReader(reader, options);
 
             var records = new List<CsvData>();
-            await foreach (var r in csv.GetRecordsAsync<CsvData>(ct))
+            try
             {
-                records.Add(r);
+                await foreach (var r in csv.GetRecordsAsync<CsvData>(ct))
+                {
+                    records.Add(r);
+                }
+                return records;
             }
-            return records;
+            catch (Exception ex) 
+            {
+                //throw new Exception("Не удалось прочитать данные!");
+                return new List<CsvData>();
+            }
         }
     }
 }
