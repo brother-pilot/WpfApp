@@ -21,6 +21,7 @@ namespace WpfApp.ViewModel
         private readonly IGrouper _grouper;
         private readonly IValidator _validator;
         private readonly ISummaryService _summaryService;
+        private readonly IFileSaver _fileSaver;
 
         public ObservableCollection<CsvData> Items { get; } = new();
         public ObservableCollection<Well> Groups { get; } = new();
@@ -41,18 +42,20 @@ namespace WpfApp.ViewModel
             ICsvLoader csvLoader,
             IGrouper grouper,
             IValidator validator,
-            ISummaryService summaryService)
+            ISummaryService summaryService,
+            IFileSaver fileSaver)
         {
             _csvLoader = csvLoader;
             _grouper = grouper;
             _validator = validator;
             _summaryService = summaryService;
+            _fileSaver = fileSaver;
 
             LoadCommand = new RelayCommand<string>(async p => await LoadAsync(p));
             GroupCommand = new RelayCommand(async () => await GroupAsync());
             ValidateCommand = new RelayCommand(async () => await ValidateAsync());
             GenerateSummaryCommand = new RelayCommand(async () => await GenerateSummaryAsync());
-            ExportCommand=null;
+            ExportCommand = new RelayCommand(async () => await ExportAsync());
         }
 
         private async Task LoadAsync(string csvPath)
@@ -102,6 +105,17 @@ namespace WpfApp.ViewModel
                 Summary.Add(s);
             Status = $"Summary: {Summary.Count} rows.";
         }
+
+        private async Task ExportAsync()
+        {
+            Status = "Exporting...";
+            var res=_fileSaver.SaveFile(Summary);
+            if (res==true)
+                Status = "Export completed.";
+            else
+                Status = "Export failed.";
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string name = null)

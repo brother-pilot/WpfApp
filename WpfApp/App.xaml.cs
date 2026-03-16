@@ -25,6 +25,7 @@ namespace WpfApp
             services.AddSingleton<IGrouper, WellGrouper>();
             services.AddSingleton<IValidator, Validator>();
             services.AddSingleton<ISummaryService, SummaryService>();
+            services.AddSingleton<IFileSaver, JsonSaver>();
             services.AddTransient<MainViewModel>();
 
             var provider = services.BuildServiceProvider();
