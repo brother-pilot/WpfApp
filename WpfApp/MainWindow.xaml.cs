@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp.ViewModel;
 
 namespace WpfApp
 {
@@ -18,7 +19,9 @@ namespace WpfApp
     {
         public MainWindow()
         {
-            InitializeComponent();
+           InitializeComponent();
         }
+
+        
     }
 }

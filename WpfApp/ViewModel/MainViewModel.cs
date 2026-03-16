@@ -15,7 +15,7 @@ using WpfApp.Models;
 
 namespace WpfApp.ViewModel
 {
-    internal class MainViewModel
+    internal class MainViewModel : INotifyPropertyChanged
     {
         private readonly ICsvLoader _csvLoader;
         private readonly IGrouper _grouper;
@@ -28,7 +28,7 @@ namespace WpfApp.ViewModel
         public ObservableCollection<Error> Errors { get; } = new();
         public ObservableCollection<SummaryWell> Summary { get; } = new();
 
-        private string _status;
+        private string _status="Status here";
         public string Status { get => _status; set { _status = value; OnPropertyChanged(); } }
 
         // простые команды
